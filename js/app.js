@@ -20,8 +20,6 @@ angular.module('TalkingBack', ['ui.bootstrap'])
             $http.get(reviewsUrl + '?order=-votes')
                 .success(function(data) {
                     $scope.reviews = data.results;
-                    console.log(reviewsUrl);
-                    console.log($scope.reviews);
                 })
                 .error(function(err){
                     console.log(err);
@@ -69,9 +67,6 @@ angular.module('TalkingBack', ['ui.bootstrap'])
         $scope.updateReview = function(review) {
             $scope.updating = true;
             $http.put(reviewsUrl + '/' + review.objectId, review)
-                .success(function() {
-                    //we could give some feedback
-                })
                 .finally(function() {
                     $scope.updating = false;
                 });
@@ -80,7 +75,7 @@ angular.module('TalkingBack', ['ui.bootstrap'])
         $scope.incrementVotes = function(review, amount) {
             console.log(review.votes);
             if ((review.votes == 0 && amount == -1) || review.votes < 0) {
-                return false;
+                window.alert("Uh oh! Zero is the lowest number of votes you can give a review!")
             }
             var postData = {
                 votes: {
@@ -100,7 +95,6 @@ angular.module('TalkingBack', ['ui.bootstrap'])
                 })
                 .finally(function () {
                     $scope.updating = false;
-                    return true;
                 });
         };
 
