@@ -6,11 +6,22 @@
         <title>Product Comments</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
+
+        <script src="lib/angular-1.3.1/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.min.js"></script>
+
     </head>
     <body>
 
-        <main class="container">
-            <section>
+        <main class="container" ng-app="TalkingBack" ng-controller="ReviewController">
+            <header>
+                <div class="page-header">
+                    <h1 class="big">~ Rate It! ~ Rate It! ~ Rate It! ~</h1>
+                    <h1 class="small">~ Rate It! ~</h1>
+                </div>
+            </header>
+
+            <section class="product">
                 <img src="img/super-bass-o-matic-76.jpg" alt="product picture" class="product-picture">
                 <h1>The Super Bass-o-Matic '76</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia cumque deserunt ullam repudiandae nisi corporis! Ipsum, ducimus commodi, itaque porro distinctio consequuntur! Autem doloremque numquam nemo ex nulla tempora quis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde nihil doloribus excepturi quisquam error possimus veritatis facere, commodi cumque ab atque dolore ducimus obcaecati ipsa, impedit! Consequuntur, eligendi iure cumque!</p>
@@ -18,6 +29,38 @@
 
             <section>
                 <h2>Add a Comment</h2>
+
+                <form ng-submit="addReview(newReview)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control"
+                               placeholder="your name goes here.." ng-model="newReview.name"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment-title">Review Title</label>
+                        <input type="text" id="comment-title" class="form-control"
+                               placeholder="title your rating" ng-model="newReview.title"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment-body">Comments</label>
+                        <textarea type="text" id="comment-body" class="form-control" rows="3"
+                               placeholder="give us your two cents" ng-model="newReview.comment"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Rating:</label>
+                        <rating max="5" ng-model="newReview.rating"></rating>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-disabled="inserting || !newReview.name ||
+                        !newReview.title || !newReview.comment || !newReview.rating">Submit Review</button>
+                        <img src="img/ajax-spinner.gif" alt="ajax request animation" ng-if="inserting"/>
+                    </div>
+                </form>
                 <!--  
                 put a form here for entering a new comment
                 the user must select a rating, and enter a name, title, and comment body
@@ -30,6 +73,26 @@
 
             <section>
                 <h2>Comments</h2>
+                <p class="noReviews" ng-if="!hasReviews">No reviews yet. Be the first to review this!</p>
+                <ul class="list-group" ng-hide="!reviews" ng-repeat="review in reviews">
+                    <li class="list-group-item">
+                        <p class="reviewTitle">{{review.title}}</p>
+                        <p>{{review.comment}}</p>
+                        <p>By: {{review.name}}</p>
+                        <p>
+                            <rating class="rating" max="5" ng-model="review.rating" ng-change="updateReview(review)" readonly="true"></rating>
+                        </p>
+                        <p>
+                            {{review.votes || 0}}
+                            <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementVotes(review, 1)"></span>
+                            <span class="glyphicon glyphicon-thumbs-down" ng-click="rates = incrementVotes(review, -1)"></span>
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-remove" ng-click="deleteReview(review)"></span>
+                        </p>
+                    </li>
+                </ul>
+
                 <!-- 
                 display existing comments here
                 each comment should also have UI allowing the user to vote up/down the comment
@@ -39,9 +102,6 @@
 
         </main>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.2/angular.min.js"></script>
-        <script src="lib/ui-bootstrap-tpls-0.11.0.min.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>

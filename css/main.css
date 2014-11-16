@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,500);
+@import url(http://fonts.googleapis.com/css?family=Homemade+Apple);
+@import url(http://fonts.googleapis.com/css?family=Rock+Salt);
+@import url(http://fonts.googleapis.com/css?family=Cookie);
 
 body {
     font-family: 'Ubuntu', 'Helvetica Neue', 'Helvetica', sans-serif;
@@ -11,3 +14,78 @@ body {
     margin-right: 10px;
 }
 
+
+.container {
+    background-image: url(../img/grey/grey_@2X.png);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1, h2{
+    font-family: 'Cookie', 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-size: 300%;
+    color: #715472;
+}
+.page-header h1 {
+    font-family: 'Homemade Apple', 'Helvetica Neue', 'Helvetica', sans-serif;
+    color: #9878af;
+    text-align: center;
+}
+
+.nav-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.nav-placeholder {
+    display: none;
+}
+
+.rating {
+    color: #d8d387;
+}
+
+.noReviews {
+    font-weight: bold;
+}
+
+
+.hideTable {
+    display: none;
+}
+
+.invalidVote {
+    color: gray;
+}
+
+.validVote {
+    color: black;
+}
+
+.reviewTitle {
+    font-weight: bolder;
+    color: #8c6aa3;
+}
+
+@media (min-width: 992px) {
+    .small {
+        display: none;
+    }
+    .big {
+       font-size: 350%;
+    }
+}
+
+@media (max-width: 992px) {
+    .big {
+        display: none;
+    }
+
+    .small {
+        font-size: 500%
+    }
+}
