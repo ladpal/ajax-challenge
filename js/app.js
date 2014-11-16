@@ -75,7 +75,8 @@ angular.module('TalkingBack', ['ui.bootstrap'])
         $scope.incrementVotes = function(review, amount) {
             console.log(review.votes);
             if ((review.votes == 0 && amount == -1) || review.votes < 0) {
-                window.alert("Uh oh! Zero is the lowest number of votes you can give a review!")
+                window.alert("Uh oh! Zero is the lowest number of votes you can give a review!");
+                return;
             }
             var postData = {
                 votes: {
